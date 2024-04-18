@@ -22,5 +22,7 @@ namespace Maquina_Vending {
         //Métodos abstractos que van a implementar las clases hijas (Cliente y Admin)
         public abstract void ComprarProductos();
         public abstract void MostrarInformacion();
+        public abstract void Menu();
+        public abstract void Salir();
     }
 }

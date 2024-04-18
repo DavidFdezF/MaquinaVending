@@ -19,5 +19,12 @@ namespace Maquina_Vending {
         public override void MostrarInformacion() {
             throw new NotImplementedException();
         }
+        public override void Menu() {
+            throw new NotImplementedException();
+        }
+        public override void Salir() {
+            throw new NotImplementedException(); 
+        }
     }
 }
+
