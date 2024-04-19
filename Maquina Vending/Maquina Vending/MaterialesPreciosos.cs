@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Maquina_Vending {
     internal class MaterialesPreciosos : Producto{
@@ -21,8 +22,23 @@ namespace Maquina_Vending {
             return $"{ID}\n\t{Nombre}\n\tUnidades: {Unidades}\n\tPrecio por Unidad {PrecioUnidad}\n\t" +
                 $"Descripción: {Descripcion}\n\tTipo de Material: {TipoMaterial}\n\tPeso: {Peso} kg";
         }
+        public override void SolicitarDetalles() {
+            try {
+                base.SolicitarDetalles(); ;
+                Console.Write("Tipo de Material: ");
+                TipoMaterial = Console.ReadLine();
+                Console.WriteLine("Peso: ");
+                Peso = double.Parse(Console.ReadLine());
+            }
+            catch (FormatException) {
+                throw new FormatException();
+            }
+            catch (Exception ex) {
+                Console.WriteLine("Error: " + ex.Message);
+                throw;
+            }
+        }
         public override void ToFile() {
-
         }
     }
 }
