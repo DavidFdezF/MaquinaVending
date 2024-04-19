@@ -36,6 +36,6 @@ namespace Maquina_Vending {
             Console.Write("Descripción: ");
             Descripcion = Console.ReadLine();
         }
-        public abstract void ToFIle();
+        public abstract void ToFile();
     }
 }
