@@ -25,7 +25,7 @@ namespace Maquina_Vending {
                 Console.WriteLine("3. Carga individual de producto");
                 Console.WriteLine("4. Carga  completa de producto");
                 Console.WriteLine("5. Salir");
-                Console.WriteLine("Opción: ");
+                Console.Write("Opción: ");
                 try {
                     opcion = int.Parse(Console.ReadLine());
                     Console.Clear();
@@ -34,6 +34,12 @@ namespace Maquina_Vending {
 
                             break;
                         case 2:
+
+                            break;
+                        case 3:
+
+                            break;
+                        case 4:
 
                             break;
                         default:
@@ -49,7 +55,7 @@ namespace Maquina_Vending {
                 }
                 Console.WriteLine("Presiona una tecla para continuar...");
                 Console.ReadKey();
-            } while (opcion != 3);
+            } while (opcion != 5);
         }
 
 
