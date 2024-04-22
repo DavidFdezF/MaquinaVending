@@ -10,6 +10,9 @@ namespace Maquina_Vending {
         public bool Pilas {  get; set; }
         public bool PreCargado { get; set; }
         public ProductoElectronico() { }
+        public ProductoElectronico(List<Producto> listaProductos) : base(listaProductos) {
+            ID = 3;
+        }
         public ProductoElectronico(int iD, string nombre, int unidades, double precioUnidad, string descripcion, string tipoMaterial, bool pilas, bool preCargado)
             : base(iD, nombre, unidades, precioUnidad, descripcion) {
             TipoMaterial = tipoMaterial;

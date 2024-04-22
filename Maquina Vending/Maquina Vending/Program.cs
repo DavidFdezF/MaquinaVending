@@ -8,14 +8,10 @@ using System.Threading.Tasks;
 namespace Maquina_Vending {
     internal class Program {
  
-        static List<Producto> listaProducto;
+        static List<Producto> listaProductos;
         static void Main(string[] args) {
 
-
-        
-
-
-                listaProducto = new List<Producto>();
+                listaProductos = new List<Producto>();
 
 
                 CargarContenidosDeArchivo();

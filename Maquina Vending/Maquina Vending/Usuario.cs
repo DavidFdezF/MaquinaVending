@@ -11,12 +11,18 @@ namespace Maquina_Vending {
         public string Nombre {  get; set; }
         public string Pin {  get; set; }
 
+        protected List<Producto> listaProductos;
+
         //COnstructores
         public Usuario() { }
+        public Usuario(List<Producto> contenidos) {
+            listaProductos = contenidos;
+        }
 
-        public Usuario(string nombre, string pin) {
+        public Usuario(string nombre, string pin, List<Producto> productos) {
             Nombre = nombre;
             Pin = pin;
+            listaProductos = productos;
         }
 
         //Métodos abstractos que van a implementar las clases hijas (Cliente y Admin)

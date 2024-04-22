@@ -8,7 +8,8 @@ namespace Maquina_Vending {
     internal class Admin : Usuario {
 
         public Admin() { }
-        public Admin(string nombre, string pin) : base(nombre, pin) { }
+        public Admin(List <Producto> productos) : base(productos) { }
+        public Admin(string nombre, string pin, List<Producto> productos) : base(nombre, pin, productos) { }
 
         public override void Menu() {
             int opcion = 0;
@@ -53,6 +54,59 @@ namespace Maquina_Vending {
                 Console.ReadKey();
             } while (opcion != 4);
         }
+
+        public void AddProducto() {
+            int opcion = 0;
+            do {
+                Console.Clear();
+                Console.WriteLine("1. Nuevo material precioso");
+                Console.WriteLine("2. Nuevo producto alimenticio");
+                Console.WriteLine("3. Nuevo producto electrónico");
+                Console.WriteLine("4. Volver al menú principal");
+                Console.Write("Introduzca la opción: ");
+                try {
+                    opcion = int.Parse(Console.ReadLine());
+                    switch (opcion) {
+                        case 1:
+                            MaterialesPreciosos p1 = new MaterialesPreciosos(listaProductos);
+                            p1.SolicitarDetalles();
+                            listaProductos.Add(p1);
+                            break;
+                        case 2:
+                            ProductoAlimenticio p2 = new ProductoAlimenticio(listaProductos);
+                            p2.SolicitarDetalles();
+                            listaProductos.Add(p2);
+                            break;
+                        case 3:
+                            ProductoElectronico p3 = new ProductoElectronico(listaProductos);
+                            p3.SolicitarDetalles();
+                            listaProductos.Add(p3);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                catch (FormatException) {
+                    Console.WriteLine("Error: Opción inválida. Por favor ingrese un número válido. ");
+                    Console.ReadKey();
+                }
+                catch (Exception ex) {
+                    Console.WriteLine("Error: " + ex.Message);
+                    Console.ReadKey();
+                }
+                Console.WriteLine("Presiona una tecla para continuar...");
+            } while (opcion != 4);
+        }
+
+
+
+
+
+
+
+
+
+
         public override void ComprarProductos() {
             throw new NotImplementedException();
         }
