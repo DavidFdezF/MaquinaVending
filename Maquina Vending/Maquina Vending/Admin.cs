@@ -29,17 +29,17 @@ namespace Maquina_Vending {
                     opcion = int.Parse(Console.ReadLine());
                     switch (opcion) {
                         case 1:
-                            Console.WriteLine("");
+                            AddProducto();
                             break;
                         case 2:
-                            Console.WriteLine("");
-                            /*Console.Write("ID del contenido a eliminar: ");
-                            int id_contenido = int.Parse(Console.ReadLine());
-                            Contenido contenidoTemp = BuscarContenido(id_contenido);
-                            EliminarContenido(contenidoTemp);*/
+                            ListarProductos();
+                            Console.Write("ID del producto a eliminar: ");
+                            int id_producto = int.Parse(Console.ReadLine());
+                            Producto productoTemp = BuscarProducto(id_producto);
+                            EliminarProducto(productoTemp);
                             break;
                         case 3:
-                            Console.WriteLine("");
+                            ListarProductos();
                             break;
                         case 4:
                             Salir();

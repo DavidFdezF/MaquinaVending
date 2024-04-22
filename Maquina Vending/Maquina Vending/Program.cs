@@ -13,6 +13,7 @@ namespace Maquina_Vending {
 
             listaProductos = new List<Producto>();
 
+            Admin admin = new Admin(listaProductos);
 
             CargarContenidosDeArchivo();
 
@@ -37,7 +38,7 @@ namespace Maquina_Vending {
 
                             break;
                         case 3:
-
+                            admin.Menu();
                             break;
                         case 4:
 
