@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 namespace Maquina_Vending {
     internal class Cliente : Usuario {
 
-        public Cliente() { }
-
-        //El cliente no necesita ningún pin para acceder, solo pasa el nombre a la clase padre (usuario)
-        public Cliente (string nombre) : base(nombre, "") {}
+        public Cliente(List<Producto> productos) : base(productos) { }
+        public Cliente(string nombre, List<Producto> productos) : base(nombre, productos) { }
 
         //Métodos de la clase abstracta
         public override void ComprarProductos() {

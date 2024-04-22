@@ -9,7 +9,6 @@ namespace Maquina_Vending {
 
         //Definición de los parámetros
         public string Nombre {  get; set; }
-        public string Pin {  get; set; }
 
         protected List<Producto> listaProductos;
 
@@ -19,9 +18,8 @@ namespace Maquina_Vending {
             listaProductos = contenidos;
         }
 
-        public Usuario(string nombre, string pin, List<Producto> productos) {
+        public Usuario(string nombre, List<Producto> productos) {
             Nombre = nombre;
-            Pin = pin;
             listaProductos = productos;
         }
 

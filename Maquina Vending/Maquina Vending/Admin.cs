@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Maquina_Vending {
     internal class Admin : Usuario {
 
+        public string Pin { get; set; }
+
         public Admin() { }
-        public Admin(List <Producto> productos) : base(productos) { }
-        public Admin(string nombre, string pin, List<Producto> productos) : base(nombre, pin, productos) { }
+        public Admin(List<Producto> productos) : base(productos) { }
+        public Admin(string nombre, string pin, List<Producto> productos) : base(nombre, productos) {
+            Pin = pin;
+        }
 
         public override void Menu() {
             int opcion = 0;
@@ -54,6 +59,20 @@ namespace Maquina_Vending {
                 Console.ReadKey();
             } while (opcion != 4);
         }
+        public override void ComprarProductos() {
+            throw new NotImplementedException();
+        }
+        public override void MostrarInformacion() {
+            throw new NotImplementedException();
+        }
+        public override void Salir() {
+            if (listaProductos.Count > 0) {
+                File.Create("productos.csv").Close();
+                foreach (Producto p in listaProductos) {
+                    p.ToFile();
+                }
+            }
+        }
 
         public void AddProducto() {
             int opcion = 0;
@@ -97,23 +116,33 @@ namespace Maquina_Vending {
                 Console.WriteLine("Presiona una tecla para continuar...");
             } while (opcion != 4);
         }
-
-
-
-
-
-
-
-
-
-
-        public override void ComprarProductos() {
-            throw new NotImplementedException();
+        public Producto BuscarProducto(int id) {
+            Producto productoTemp = null;
+            foreach (Producto p in listaProductos) {
+                if (p.ID == id) {
+                    productoTemp = p;
+                    break;
+                }
+            }
+            return productoTemp;
         }
-        public override void MostrarInformacion() {
-            throw new NotImplementedException();
+        public void EliminarProducto(Producto p) {
+            if (p != null) {
+                listaProductos.Remove(p);
+                Console.WriteLine("Producto eliminado");
+            }
+            else {
+                Console.WriteLine("No se ha encontrado ningún producto con el ID introducido");
+            }
         }
-        public override void Salir() { }
+        public void ListarProductos() {
+            Console.WriteLine(" --- Listado de productos --- ");
+            Console.WriteLine();
+            foreach (Producto p in listaProductos) {
+                Console.WriteLine(p.MostrarInformacion());
+            }
+        }
     }
 }
+
 
