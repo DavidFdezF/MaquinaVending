@@ -26,16 +26,25 @@ namespace Maquina_Vending {
                 $"Descripción: {Descripcion}";
         }
         public virtual void SolicitarDetalles() {
-            Console.Clear();
-            Console.WriteLine();
-            Console.Write("Nombre: ");
-            Nombre = Console.ReadLine();
-            Console.Write("Unidades: ");
-            Unidades = int.Parse(Console.ReadLine());
-            Console.Write("Precio por Unidad: ");
-            PrecioUnidad = double.Parse(Console.ReadLine());
-            Console.Write("Descripción: ");
-            Descripcion = Console.ReadLine();
+            try {
+                Console.Clear();
+                Console.WriteLine();
+                Console.Write("Nombre: ");
+                Nombre = Console.ReadLine();
+                Console.Write("Unidades: ");
+                Unidades = int.Parse(Console.ReadLine());
+                Console.Write("Precio por Unidad: ");
+                PrecioUnidad = double.Parse(Console.ReadLine());
+                Console.Write("Descripción: ");
+                Descripcion = Console.ReadLine();
+            }
+            catch (FormatException) {
+                throw new FormatException();
+            }
+            catch (Exception ex) {
+                Console.WriteLine("Error: " + ex.Message);
+                throw;
+            }
         }
         public abstract void ToFile();
     }
