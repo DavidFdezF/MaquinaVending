@@ -41,7 +41,7 @@ namespace Maquina_Vending {
                             admin.Menu();
                             break;
                         case 4:
-
+                            admin.CargaCompleta();
                             break;
                         default:
                             Console.WriteLine("Opcion no valida");
@@ -60,7 +60,7 @@ namespace Maquina_Vending {
         }
 
 
-        private static bool CargarContenidosDeArchivo() {
+        public static bool CargarContenidosDeArchivo() {
             bool contenidosCargados = false;
             try {
                 if (File.Exists("productos.csv")) {

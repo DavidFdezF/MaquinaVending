@@ -104,7 +104,75 @@ namespace Maquina_Vending {
                 }
             }
         }
-
+        public bool CargaCompleta() {
+            bool contenidosCargados = false;
+            int productosCargados = 0;
+            if (Login()) {
+                Console.Clear();
+                Console.WriteLine("Introduzca el nombre del archivo .csv");
+                Console.WriteLine("Por ejemplo, cargarproductos.csv");
+                Console.Write("Nombre del archivo .csv: ");
+                string archivo = Console.ReadLine();
+                try {
+                    if (File.Exists(archivo)) {
+                        StreamReader sr = new StreamReader(archivo);
+                        string linea;
+                        while ((linea = sr.ReadLine()) != null && productosCargados < 12 && listaProductos.Count < 12) {
+                            contenidosCargados = true;
+                            string[] datos = linea.Split(';');
+                            if (datos.Length <= 9) {
+                                Producto productoCargado = null;
+                                if (datos[7] == "MaterialesPreciosos") {
+                                    MaterialesPreciosos p = new MaterialesPreciosos(int.Parse(datos[0]), datos[1], int.Parse(datos[2]), double.Parse(datos[3]), datos[4], datos[5], double.Parse(datos[6]));
+                                    productoCargado = p;
+                                }
+                                else if (datos[6] == "ProductoAlimenticio") {
+                                    ProductoAlimenticio p = new ProductoAlimenticio(int.Parse(datos[0]), datos[1], int.Parse(datos[2]), double.Parse(datos[3]), datos[4], datos[5]);
+                                    productoCargado = p;
+                                }
+                                else if (datos[8] == "ProductoElectronico") {
+                                    ProductoElectronico p = new ProductoElectronico(int.Parse(datos[0]), datos[1], int.Parse(datos[2]), double.Parse(datos[3]), datos[4], datos[5], bool.Parse(datos[6]), bool.Parse(datos[7]));
+                                    productoCargado = p;
+                                }
+                                if (productoCargado != null) {
+                                    int nuevoID = ObtenerNuevoID();
+                                    productoCargado.ID = nuevoID;
+                                    listaProductos.Add(productoCargado);
+                                    productosCargados++;
+                                }
+                            }
+                        }
+                        if (contenidosCargados) {
+                            Console.WriteLine("Contenidos cargados correctamente.");
+                        }
+                        else {
+                            Console.WriteLine("Error: La línea no contiene todos los datos necesarios.");
+                        }
+                    }
+                    else {
+                        Console.WriteLine("El archivo especificado no existe.");
+                    }
+                }
+                catch (FileNotFoundException ex) {
+                    Console.WriteLine("No se encuentra el archivo de contenidos: " + ex.Message);
+                }
+                catch (IOException ex) {
+                    Console.WriteLine("Error de E/S: " + ex.Message);
+                }
+            }
+            return contenidosCargados;
+        }
+        private int ObtenerNuevoID() {
+            // Encuentra el ID más grande en la lista actual de productos
+            int maxID = 0;
+            foreach (Producto p in listaProductos) {
+                if (p.ID > maxID) {
+                    maxID = p.ID;
+                }
+            }
+            // Retorna el siguiente ID único
+            return maxID + 1;
+        }
         public void AddProducto() {
             if (listaProductos.Count < 12) {
                 int opcion = 0;
@@ -121,16 +189,28 @@ namespace Maquina_Vending {
                             case 1:
                                 MaterialesPreciosos p1 = new MaterialesPreciosos(listaProductos);
                                 p1.SolicitarDetalles();
-                                listaProductos.Add(p1);
+                                while (BuscarProducto(p1.ID) != null) {
+                                    Console.WriteLine("El ID ya está en uso. Generando un nuevo ID...");
+                                    p1.ID += 1;
+                                }
+                                listaProductos.Add(p1); 
                                 break;
                             case 2:
                                 ProductoAlimenticio p2 = new ProductoAlimenticio(listaProductos);
                                 p2.SolicitarDetalles();
+                                while (BuscarProducto(p2.ID) != null) {
+                                    Console.WriteLine("El ID ya está en uso. Generando un nuevo ID...");
+                                    p2.ID += 1;
+                                }
                                 listaProductos.Add(p2);
                                 break;
                             case 3:
                                 ProductoElectronico p3 = new ProductoElectronico(listaProductos);
                                 p3.SolicitarDetalles();
+                                while (BuscarProducto(p3.ID) != null) {
+                                    Console.WriteLine("El ID ya está en uso. Generando un nuevo ID...");
+                                    p3.ID += 1;
+                                }
                                 listaProductos.Add(p3);
                                 break;
                             default:

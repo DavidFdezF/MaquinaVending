@@ -25,7 +25,7 @@ namespace Maquina_Vending {
         }
         public override void SolicitarDetalles() {
             try {
-                base.SolicitarDetalles(); ;
+                base.SolicitarDetalles();
                 Console.Write("Tipo de Material: ");
                 TipoMaterial = Console.ReadLine();
                 Console.WriteLine("Peso: ");
