@@ -159,14 +159,25 @@ namespace Maquina_Vending {
         }
         public void EliminarProducto(Producto p) {
             if (p != null) {
-                listaProductos.Remove(p);
-                Console.WriteLine("Producto eliminado");
+                Console.WriteLine("Producto encontrado:");
+                Console.WriteLine(p.MostrarInformacion());
+                Console.Write("Cantidad a reducir: ");
+                int cantidadReducir = int.Parse(Console.ReadLine());
+
+                if (cantidadReducir <= p.Unidades) {
+                    p.Unidades -= cantidadReducir;
+                    Console.WriteLine($"Se han reducido {cantidadReducir} unidades del producto.");
+                }
+                else {
+                    Console.WriteLine("La cantidad a reducir es mayor que la cantidad actual del producto.");
+                }
             }
             else {
                 Console.WriteLine("No se ha encontrado ningún producto con el ID introducido");
             }
         }
-        public override void ListarProductos() {
+
+    public override void ListarProductos() {
             Console.WriteLine(" --- Listado de productos --- ");
             Console.WriteLine();
             foreach (Producto p in listaProductos) {
