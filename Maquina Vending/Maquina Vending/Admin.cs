@@ -25,14 +25,23 @@ namespace Maquina_Vending {
 
             if (clave == Pin) {
                 Console.WriteLine("Acceso concedido.");
-                inicioSesion = true;            }
+                inicioSesion = true;
+            }
             else {
                 Console.WriteLine("Clave incorrecta. Acceso denegado.");
             }
             return inicioSesion;
         }
+        private void EliminarProductoConClave() {
+            Console.Write("ID del producto a reducir: ");
+            int idProducto = int.Parse(Console.ReadLine());
 
-        public override void Menu() {
+            Producto producto = BuscarProducto(idProducto);
+            EliminarProducto(producto);
+        }
+
+
+        public void Menu() {
             int opcion = 0;
             if (Login()) {
                 do {
@@ -50,17 +59,17 @@ namespace Maquina_Vending {
                                 AddProducto();
                                 break;
                             case 2:
-                                ListarProductos();
+                                MostrarInformacionProducto();
                                 Console.Write("ID del producto a eliminar: ");
                                 int id_producto = int.Parse(Console.ReadLine());
                                 Producto productoTemp = BuscarProducto(id_producto);
                                 EliminarProducto(productoTemp);
                                 break;
                             case 3:
-                                ListarProductos();
+                                MostrarInformacionProducto();
                                 break;
                             case 4:
-                                ListarProductos();
+                                MostrarInformacionProducto();
                                 Console.Write("ID del producto al que deseas añadir existencias: ");
                                 int id_producto_existencias = int.Parse(Console.ReadLine());
                                 Producto productoExistencias = BuscarProducto(id_producto_existencias);
@@ -96,7 +105,7 @@ namespace Maquina_Vending {
         public override void ComprarProductos() {
             throw new NotImplementedException();
         }
-        public override void Salir() {
+        public void Salir() {
             if (listaProductos.Count > 0) {
                 File.Create("productos.csv").Close();
                 foreach (Producto p in listaProductos) {
@@ -152,7 +161,7 @@ namespace Maquina_Vending {
                 Console.WriteLine("No hay ranuras disponibles en la máquina de vending.");
             }
         }
-            public void AñadirExistencias(List<Producto> listaProductos) {
+        public void AñadirExistencias(List<Producto> listaProductos) {
             Console.WriteLine("Añadir existencias a un producto existente:");
             Console.Write("ID del producto: ");
             int idProducto = int.Parse(Console.ReadLine());
@@ -218,7 +227,7 @@ namespace Maquina_Vending {
             }
         }
 
-    public override void ListarProductos() {
+        public override void MostrarInformacionProducto() {
             Console.WriteLine(" --- Listado de productos --- ");
             Console.WriteLine();
             foreach (Producto p in listaProductos) {

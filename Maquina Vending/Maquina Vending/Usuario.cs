@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Maquina_Vending {
     internal abstract class Usuario {
-
         //Definición de los parámetros
-        public string Nombre {  get; set; }
+        public string Nombre { get; set; }
 
         protected List<Producto> listaProductos;
 
@@ -25,8 +24,6 @@ namespace Maquina_Vending {
 
         //Métodos abstractos que van a implementar las clases hijas (Cliente y Admin)
         public abstract void ComprarProductos();
-        public abstract void ListarProductos();
-        public abstract void Menu();
-        public abstract void Salir();
+        public abstract void MostrarInformacionProducto();
     }
 }
