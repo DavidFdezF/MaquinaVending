@@ -11,69 +11,96 @@ namespace Maquina_Vending {
         public string Pin { get; set; }
 
         public Admin() { }
+        public Admin(List<Producto> productos, string pin) : base(productos) {
+            Pin = pin;
+        }
         public Admin(List<Producto> productos) : base(productos) { }
         public Admin(string nombre, string pin, List<Producto> productos) : base(nombre, productos) {
             Pin = pin;
         }
+        public bool Login() {
+            bool inicioSesion = false;
+            Console.Write("Ingrese la clave de administrador: ");
+            string clave = Console.ReadLine();
+
+            if (clave == Pin) {
+                Console.WriteLine("Acceso concedido.");
+                inicioSesion = true;            }
+            else {
+                Console.WriteLine("Clave incorrecta. Acceso denegado.");
+            }
+            return inicioSesion;
+        }
+
+        private void EliminarProductoConClave() {
+            Console.Write("ID del producto a reducir: ");
+            int idProducto = int.Parse(Console.ReadLine());
+
+            Producto producto = BuscarProducto(idProducto);
+            EliminarProducto(producto);
+        }
+
 
         public override void Menu() {
             int opcion = 0;
-            do {
-                Console.Clear();
-                Console.WriteLine("1. Añadir producto");
-                Console.WriteLine("2. Eliminar producto por ID");
-                Console.WriteLine("3. Listar productos");
-                Console.WriteLine("4. Añadir existencias a un producto");
-                Console.WriteLine("5. Salir");
-                Console.Write("Elige una opción: ");
-                try {
-                    opcion = int.Parse(Console.ReadLine());
-                    switch (opcion) {
-                        case 1:
-                            AddProducto();
-                            break;
-                        case 2:
-                            ListarProductos();
-                            Console.Write("ID del producto a eliminar: ");
-                            int id_producto = int.Parse(Console.ReadLine());
-                            Producto productoTemp = BuscarProducto(id_producto);
-                            EliminarProducto(productoTemp);
-                            break;
-                        case 3:
-                            ListarProductos();
-                            break;
-                        case 4:
-                            ListarProductos();
-                            Console.Write("ID del producto al que deseas añadir existencias: ");
-                            int id_producto_existencias = int.Parse(Console.ReadLine());
-                            Producto productoExistencias = BuscarProducto(id_producto_existencias);
-                            if (productoExistencias != null) {
-                                Console.Write("Cantidad de existencias a añadir: ");
-                                int cantidad = int.Parse(Console.ReadLine());
-                                productoExistencias.AñadirExistencias(cantidad);
-                                Console.WriteLine("Existencias añadidas correctamente.");
-                            }
-                            else {
-                                Console.WriteLine("Producto no encontrado.");
-                            }
-                            break;
-                        case 5:
-                            Salir();
-                            Console.WriteLine("Saliendo...");
-                            break;
-                        default:
-                            Console.WriteLine("Opción no válida");
-                            break;
+            if (Login()) {
+                do {
+                    Console.Clear();
+                    Console.WriteLine("1. Añadir producto");
+                    Console.WriteLine("2. Eliminar producto por ID");
+                    Console.WriteLine("3. Listar productos");
+                    Console.WriteLine("4. Añadir existencias a un producto");
+                    Console.WriteLine("5. Salir");
+                    Console.Write("Elige una opción: ");
+                    try {
+                        opcion = int.Parse(Console.ReadLine());
+                        switch (opcion) {
+                            case 1:
+                                AddProducto();
+                                break;
+                            case 2:
+                                ListarProductos();
+                                Console.Write("ID del producto a eliminar: ");
+                                int id_producto = int.Parse(Console.ReadLine());
+                                Producto productoTemp = BuscarProducto(id_producto);
+                                EliminarProducto(productoTemp);
+                                break;
+                            case 3:
+                                ListarProductos();
+                                break;
+                            case 4:
+                                ListarProductos();
+                                Console.Write("ID del producto al que deseas añadir existencias: ");
+                                int id_producto_existencias = int.Parse(Console.ReadLine());
+                                Producto productoExistencias = BuscarProducto(id_producto_existencias);
+                                if (productoExistencias != null) {
+                                    Console.Write("Cantidad de existencias a añadir: ");
+                                    int cantidad = int.Parse(Console.ReadLine());
+                                    productoExistencias.AñadirExistencias(cantidad);
+                                    Console.WriteLine("Existencias añadidas correctamente.");
+                                }
+                                else {
+                                    Console.WriteLine("Producto no encontrado.");
+                                }
+                                break;
+                            case 5:
+                                Salir();
+                                Console.WriteLine("Saliendo...");
+                                break;
+                            default:
+                                Console.WriteLine("Opción no válida");
+                                break;
+                        }
                     }
-                }
-                catch (FormatException) {
-                    Console.WriteLine("Error: Opción inválida. Por favor ingrese un número válido. ");
-                }
-                catch (Exception ex) {
-                    Console.WriteLine("Error: " + ex.Message);
-                }
-                Console.ReadKey();
-            } while (opcion != 5);
+                    catch (FormatException) {
+                        Console.WriteLine("Error: Opción inválida. Por favor ingrese un número válido. ");
+                    }
+                    catch (Exception ex) {
+                        Console.WriteLine("Error: " + ex.Message);
+                    }
+                    Console.ReadKey();
+                } while (opcion != 5);
+            }
         }
         public override void ComprarProductos() {
             throw new NotImplementedException();

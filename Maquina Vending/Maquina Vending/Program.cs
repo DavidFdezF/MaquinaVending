@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 namespace Maquina_Vending {
     internal class Program {
 
+        private const int RANURAS = 12;
         static List<Producto> listaProductos;
         static void Main(string[] args) {
 
             listaProductos = new List<Producto>();
 
-            Admin admin = new Admin(listaProductos);
+            Admin admin = new Admin(listaProductos, "admin");
 
             CargarContenidosDeArchivo();
 
@@ -23,8 +24,8 @@ namespace Maquina_Vending {
                 Console.WriteLine();
                 Console.WriteLine("1. Comprar producto");
                 Console.WriteLine("2. Ver información de producto");
-                Console.WriteLine("3. Carga individual de producto");
-                Console.WriteLine("4. Carga  completa de producto");
+                Console.WriteLine("3. Carga individual de producto (Admin)");
+                Console.WriteLine("4. Carga  completa de producto (Admin)");
                 Console.WriteLine("5. Salir");
                 Console.Write("Opción: ");
                 try {
