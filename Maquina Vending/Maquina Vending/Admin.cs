@@ -62,9 +62,6 @@ namespace Maquina_Vending {
         public override void ComprarProductos() {
             throw new NotImplementedException();
         }
-        public override void MostrarInformacion() {
-            throw new NotImplementedException();
-        }
         public override void Salir() {
             if (listaProductos.Count > 0) {
                 File.Create("productos.csv").Close();
@@ -135,7 +132,7 @@ namespace Maquina_Vending {
                 Console.WriteLine("No se ha encontrado ningún producto con el ID introducido");
             }
         }
-        public void ListarProductos() {
+        public override void ListarProductos() {
             Console.WriteLine(" --- Listado de productos --- ");
             Console.WriteLine();
             foreach (Producto p in listaProductos) {
