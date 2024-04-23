@@ -23,7 +23,8 @@ namespace Maquina_Vending {
                 Console.WriteLine("1. Añadir producto");
                 Console.WriteLine("2. Eliminar producto por ID");
                 Console.WriteLine("3. Listar productos");
-                Console.WriteLine("4. Salir");
+                Console.WriteLine("4. Añadir existencias a un producto");
+                Console.WriteLine("5. Salir");
                 Console.Write("Elige una opción: ");
                 try {
                     opcion = int.Parse(Console.ReadLine());
@@ -42,6 +43,21 @@ namespace Maquina_Vending {
                             ListarProductos();
                             break;
                         case 4:
+                            ListarProductos();
+                            Console.Write("ID del producto al que deseas añadir existencias: ");
+                            int id_producto_existencias = int.Parse(Console.ReadLine());
+                            Producto productoExistencias = BuscarProducto(id_producto_existencias);
+                            if (productoExistencias != null) {
+                                Console.Write("Cantidad de existencias a añadir: ");
+                                int cantidad = int.Parse(Console.ReadLine());
+                                productoExistencias.AñadirExistencias(cantidad);
+                                Console.WriteLine("Existencias añadidas correctamente.");
+                            }
+                            else {
+                                Console.WriteLine("Producto no encontrado.");
+                            }
+                            break;
+                        case 5:
                             Salir();
                             Console.WriteLine("Saliendo...");
                             break;
@@ -57,7 +73,7 @@ namespace Maquina_Vending {
                     Console.WriteLine("Error: " + ex.Message);
                 }
                 Console.ReadKey();
-            } while (opcion != 4);
+            } while (opcion != 5);
         }
         public override void ComprarProductos() {
             throw new NotImplementedException();
@@ -116,6 +132,24 @@ namespace Maquina_Vending {
                 Console.WriteLine("Presiona una tecla para continuar...");
             } while (opcion != 4);
         }
+        public void AñadirExistencias(List<Producto> listaProductos) {
+            Console.WriteLine("Añadir existencias a un producto existente:");
+            Console.Write("ID del producto: ");
+            int idProducto = int.Parse(Console.ReadLine());
+
+            Producto producto = BuscarProducto(idProducto);
+            if (producto != null) {
+                Console.Write("Cantidad de existencias a añadir: ");
+                int cantidad = int.Parse(Console.ReadLine());
+                producto.AñadirExistencias(cantidad);
+                Console.WriteLine("Existencias añadidas correctamente.");
+            }
+            else {
+                Console.WriteLine("Producto no encontrado.");
+            }
+        }
+
+
         public Producto BuscarProducto(int id) {
             Producto productoTemp = null;
             foreach (Producto p in listaProductos) {

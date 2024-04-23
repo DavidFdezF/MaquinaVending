@@ -8,9 +8,7 @@ namespace Maquina_Vending {
     internal class ProductoAlimenticio : Producto{
         public string InformacionNutricional {  get; set; }
         public ProductoAlimenticio() { }
-        public ProductoAlimenticio(List<Producto> listaProductos) : base(listaProductos) {
-            ID = 2;
-        }
+        public ProductoAlimenticio(List<Producto> listaProductos) : base(listaProductos) {}
         public ProductoAlimenticio(int iD, string nombre, int unidades, double precioUnidad, string descripcion, string informacionNutricional)
             : base(iD, nombre, unidades, precioUnidad, descripcion) {
             InformacionNutricional = informacionNutricional;

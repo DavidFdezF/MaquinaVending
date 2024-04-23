@@ -13,7 +13,9 @@ namespace Maquina_Vending {
         public string Descripcion { get; set; }
 
         public Producto() { }
-        public Producto(List<Producto> listaProductos) { }
+        public Producto(List<Producto> listaProductos) {
+            ID += listaProductos.Count + 1;
+        }
         public Producto(int iD, string nombre, int unidades, double precioUnidad, string descripcion) {
             ID = iD;
             Nombre = nombre;
@@ -37,6 +39,10 @@ namespace Maquina_Vending {
             Console.Write("Descripción: ");
             Descripcion = Console.ReadLine();
         }
+        public virtual void AñadirExistencias(int cantidad) {
+            Unidades += cantidad;
+        }
+
         public abstract void ToFile();
     }
 }
