@@ -28,7 +28,7 @@ namespace Maquina_Vending {
                 base.SolicitarDetalles();
                 Console.Write("Tipo de Material: ");
                 TipoMaterial = Console.ReadLine();
-                Console.WriteLine("Peso: ");
+                Console.Write("Peso: ");
                 Peso = double.Parse(Console.ReadLine());
             }
             catch (FormatException) {

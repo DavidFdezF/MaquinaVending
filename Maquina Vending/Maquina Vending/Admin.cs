@@ -145,17 +145,26 @@ namespace Maquina_Vending {
                                 }
                                 if (productoCargado != null) {
                                     int nuevoID = ObtenerNuevoID();
-                                    productoCargado.ID = nuevoID;
-                                    listaProductos.Add(productoCargado);
-                                    productosCargados++;
+                                    if (nuevoID == 0) {
+                                        Console.WriteLine("La máquina de vending está llena. No se pueden cargar más productos.");
+                                        break;
+                                    }
+                                    else {
+                                        productoCargado.ID = nuevoID;
+                                        listaProductos.Add(productoCargado);
+                                        productosCargados++;
+                                    }
                                 }
                             }
                         }
                         if (contenidosCargados) {
-                            Console.WriteLine("Contenidos cargados correctamente.");
+                                Console.WriteLine($"Se han cargado {productosCargados} productos.");
+                        } 
+                        else if (listaProductos.Count == 12) {
+                                Console.WriteLine("Máquina llena");
                         }
                         else {
-                            Console.WriteLine("Error: La línea no contiene todos los datos necesarios.");
+                                Console.WriteLine("Error: La línea no contiene todos los datos necesarios.");
                         }
                     }
                     else {
@@ -172,14 +181,29 @@ namespace Maquina_Vending {
             return contenidosCargados;
         }
         private int ObtenerNuevoID() {
-            // Encuentra el ID más grande en la lista actual de productos
             int maxID = 0;
             foreach (Producto p in listaProductos) {
-                if (p.ID > maxID) {
+                if (p.ID > maxID && p.ID <= 12) 
+                {
                     maxID = p.ID;
                 }
             }
-            // Retorna el siguiente ID único
+
+            if (maxID == 12) {
+                for (int i = 1; i <= 12; i++) {
+                    bool idLibre = true;
+                    foreach (Producto p in listaProductos) {
+                        if (p.ID == i) {
+                            idLibre = false;
+                            break;
+                        }
+                    }
+                    if (idLibre) {
+                        return i;
+                    }
+                }
+                return 0;
+            }
             return maxID + 1;
         }
         public void AddProducto() {
