@@ -49,26 +49,41 @@ namespace Maquina_Vending {
                 }
             }
             //Pago
-            Console.WriteLine("Seleccione la forma de pago:");
-            Console.WriteLine("1. Pago en efectivo");
-            Console.WriteLine("2. Pago con tarjeta");
-            Console.Write("Opción: ");
-            int opcionPago = int.Parse(Console.ReadLine());
+            int opcionPago = 0;
+            do {
+                Console.WriteLine("Seleccione la forma de pago:");
+                Console.WriteLine("1. Pago en efectivo");
+                Console.WriteLine("2. Pago con tarjeta");
+                Console.Write("Opción: ");
 
-            // Procesar el pago según la opción seleccionada
-            switch (opcionPago) {
-                case 1:
-                    // Proceso de pago en efectivo
-                    Console.WriteLine("Proceso de pago en efectivo...");
-                    break;
-                case 2:
-                    // Proceso de pago con tarjeta
-                    Console.WriteLine("Proceso de pago con tarjeta...");
-                    break;
-                default:
-                    Console.WriteLine("Opción de pago no válida.");
-                    break;
-            }
+                try {
+                    opcionPago = int.Parse(Console.ReadLine());
+
+                    // Procesar el pago según la opción seleccionada
+                    switch (opcionPago) {
+                        case 1:
+                            // Proceso de pago en efectivo
+                            Console.WriteLine("Proceso de pago en efectivo...");
+                            break;
+                        case 2:
+                            // Proceso de pago con tarjeta
+                            Console.WriteLine("Proceso de pago con tarjeta...");
+                            break;
+                        default:
+                            Console.WriteLine("Opción de pago no válida.");
+                            break;
+                    }
+                }
+                catch (FormatException) {
+                    Console.WriteLine("Error: Opción inválida. Por favor ingrese un número válido. ");
+                    Console.ReadKey();
+                }
+                catch (Exception ex) {
+                    Console.WriteLine("Error: " + ex.Message);
+                    Console.ReadKey();
+                }
+                Console.WriteLine("Presiona una tecla para continuar...");
+            } while (opcionPago != 2);
         }
         public override void MostrarInformacionProducto() {
             // Mostrar los productos disponibles

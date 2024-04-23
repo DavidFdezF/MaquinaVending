@@ -15,6 +15,7 @@ namespace Maquina_Vending {
             listaProductos = new List<Producto>();
 
             Admin admin = new Admin(listaProductos, CONTRASENA);
+            Cliente cliente = new Cliente(listaProductos);
 
             CargarContenidosDeArchivo();
 
@@ -33,10 +34,10 @@ namespace Maquina_Vending {
                     Console.Clear();
                     switch (opcion) {
                         case 1:
-
+                            cliente.ComprarProductos();
                             break;
                         case 2:
-
+                            cliente.MostrarInformacionProducto();
                             break;
                         case 3:
                             admin.Menu();
