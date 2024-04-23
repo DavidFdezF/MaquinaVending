@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 namespace Maquina_Vending {
     internal class Program {
 
+        private const string CONTRASENA = "admin";
         static List<Producto> listaProductos;
         static void Main(string[] args) {
 
             listaProductos = new List<Producto>();
 
-            Admin admin = new Admin(listaProductos, "admin");
+            Admin admin = new Admin(listaProductos, CONTRASENA);
 
             CargarContenidosDeArchivo();
 
