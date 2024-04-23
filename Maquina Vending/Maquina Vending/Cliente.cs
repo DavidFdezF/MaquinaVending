@@ -13,13 +13,54 @@ namespace Maquina_Vending {
 
         //Métodos de la clase abstracta
         public override void ComprarProductos() {
-            throw new NotImplementedException();
+            Console.WriteLine("Productos disponibles:");
+            foreach (Producto producto in listaProductos) {
+                Console.WriteLine($"ID: {producto.ID}, Nombre: {producto.Nombre}");
+            }
+
+            List<Producto> productosComprados = new List<Producto>();
+
+            bool seguirComprando = true;
+            while (seguirComprando) {
+                Console.Write("Ingrese el ID del producto que desea comprar: ");
+                int idProducto = int.Parse(Console.ReadLine());
+
+                Producto productoSeleccionado = listaProductos.FirstOrDefault(p => p.ID == idProducto);
+                if (productoSeleccionado != null) {
+                    productosComprados.Add(productoSeleccionado);
+                    Console.WriteLine($"Producto '{productoSeleccionado.Nombre}' agregado al carrito.");
+                }
+                else {
+                    Console.WriteLine("ID de producto no válido.");
+                }
+
+                Console.Write("¿Desea comprar otro producto? (S/N): ");
+                string respuesta = Console.ReadLine().ToUpper();
+
+                if (respuesta != "S") {
+                    seguirComprando = false;
+                }
+            }
+            Console.WriteLine("Proceso de pago...");
         }
         public override void ListarProductos() {
-            Console.WriteLine(" --- Listado de productos --- ");
-            Console.WriteLine();
-            foreach (Producto p in listaProductos) {
-                Console.WriteLine(p.MostrarInformacion());
+            Console.WriteLine("Productos disponibles:");
+            foreach (Producto producto in listaProductos) {
+                Console.WriteLine($"ID: {producto.ID}, Nombre: {producto.Nombre}");
+            }
+
+            Console.Write("Ingrese el ID del producto que desea ver: ");
+            int idProducto = int.Parse(Console.ReadLine());
+
+            Producto productoMostrado = null;
+            foreach (Producto producto in listaProductos) {
+                if (producto.ID == idProducto) {
+                    productoMostrado = producto;
+                    break;
+                }
+                else {
+                    Console.WriteLine("ID de producto no válido.");
+                }
             }
         }
         public override void Menu() {
