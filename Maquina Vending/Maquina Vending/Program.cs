@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 namespace Maquina_Vending {
     internal class Program {
 
-        private const int RANURAS = 12;
         static List<Producto> listaProductos;
         static void Main(string[] args) {
 

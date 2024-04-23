@@ -32,15 +32,6 @@ namespace Maquina_Vending {
             return inicioSesion;
         }
 
-        private void EliminarProductoConClave() {
-            Console.Write("ID del producto a reducir: ");
-            int idProducto = int.Parse(Console.ReadLine());
-
-            Producto producto = BuscarProducto(idProducto);
-            EliminarProducto(producto);
-        }
-
-
         public override void Menu() {
             int opcion = 0;
             if (Login()) {
@@ -115,48 +106,53 @@ namespace Maquina_Vending {
         }
 
         public void AddProducto() {
-            int opcion = 0;
-            do {
-                Console.Clear();
-                Console.WriteLine("1. Nuevo material precioso");
-                Console.WriteLine("2. Nuevo producto alimenticio");
-                Console.WriteLine("3. Nuevo producto electrónico");
-                Console.WriteLine("4. Volver al menú principal");
-                Console.Write("Introduzca la opción: ");
-                try {
-                    opcion = int.Parse(Console.ReadLine());
-                    switch (opcion) {
-                        case 1:
-                            MaterialesPreciosos p1 = new MaterialesPreciosos(listaProductos);
-                            p1.SolicitarDetalles();
-                            listaProductos.Add(p1);
-                            break;
-                        case 2:
-                            ProductoAlimenticio p2 = new ProductoAlimenticio(listaProductos);
-                            p2.SolicitarDetalles();
-                            listaProductos.Add(p2);
-                            break;
-                        case 3:
-                            ProductoElectronico p3 = new ProductoElectronico(listaProductos);
-                            p3.SolicitarDetalles();
-                            listaProductos.Add(p3);
-                            break;
-                        default:
-                            break;
+            if (listaProductos.Count < 12) {
+                int opcion = 0;
+                do {
+                    Console.Clear();
+                    Console.WriteLine("1. Nuevo material precioso");
+                    Console.WriteLine("2. Nuevo producto alimenticio");
+                    Console.WriteLine("3. Nuevo producto electrónico");
+                    Console.WriteLine("4. Volver al menú principal");
+                    Console.Write("Introduzca la opción: ");
+                    try {
+                        opcion = int.Parse(Console.ReadLine());
+                        switch (opcion) {
+                            case 1:
+                                MaterialesPreciosos p1 = new MaterialesPreciosos(listaProductos);
+                                p1.SolicitarDetalles();
+                                listaProductos.Add(p1);
+                                break;
+                            case 2:
+                                ProductoAlimenticio p2 = new ProductoAlimenticio(listaProductos);
+                                p2.SolicitarDetalles();
+                                listaProductos.Add(p2);
+                                break;
+                            case 3:
+                                ProductoElectronico p3 = new ProductoElectronico(listaProductos);
+                                p3.SolicitarDetalles();
+                                listaProductos.Add(p3);
+                                break;
+                            default:
+                                break;
+                        }
                     }
-                }
-                catch (FormatException) {
-                    Console.WriteLine("Error: Opción inválida. Por favor ingrese un número válido. ");
-                    Console.ReadKey();
-                }
-                catch (Exception ex) {
-                    Console.WriteLine("Error: " + ex.Message);
-                    Console.ReadKey();
-                }
-                Console.WriteLine("Presiona una tecla para continuar...");
-            } while (opcion != 4);
+                    catch (FormatException) {
+                        Console.WriteLine("Error: Opción inválida. Por favor ingrese un número válido. ");
+                        Console.ReadKey();
+                    }
+                    catch (Exception ex) {
+                        Console.WriteLine("Error: " + ex.Message);
+                        Console.ReadKey();
+                    }
+                    Console.WriteLine("Presiona una tecla para continuar...");
+                } while (opcion != 4);
+            }
+            else {
+                Console.WriteLine("No hay ranuras disponibles en la máquina de vending.");
+            }
         }
-        public void AñadirExistencias(List<Producto> listaProductos) {
+            public void AñadirExistencias(List<Producto> listaProductos) {
             Console.WriteLine("Añadir existencias a un producto existente:");
             Console.Write("ID del producto: ");
             int idProducto = int.Parse(Console.ReadLine());
@@ -194,6 +190,24 @@ namespace Maquina_Vending {
                 if (cantidadReducir <= p.Unidades) {
                     p.Unidades -= cantidadReducir;
                     Console.WriteLine($"Se han reducido {cantidadReducir} unidades del producto.");
+
+                    if (p.Unidades == 0) {
+                        listaProductos.Remove(p);
+                        Console.WriteLine("El producto ha sido eliminado porque su cantidad llegó a 0.");
+                        string archivo = "productos.csv";
+                        string[] lineas = File.ReadAllLines(archivo);
+                        List<string> lineasNuevas = new List<string>();
+
+                        foreach (string linea in lineas) {
+                            string[] campos = linea.Split(';');
+                            int id = int.Parse(campos[0]);
+                            if (id != p.ID) {
+                                lineasNuevas.Add(linea);
+                            }
+                        }
+
+                        File.WriteAllLines(archivo, lineasNuevas);
+                    }
                 }
                 else {
                     Console.WriteLine("La cantidad a reducir es mayor que la cantidad actual del producto.");
