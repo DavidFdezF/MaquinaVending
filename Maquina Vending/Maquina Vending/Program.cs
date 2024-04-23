@@ -69,15 +69,15 @@ namespace Maquina_Vending {
                     while ((linea = sr.ReadLine()) != null) {
                         contenidosCargados = true;
                         string[] datos = linea.Split(';');
-                        if (datos[0] == "1") {
+                        if (datos[7] == "MaterialesPreciosos") {
                             MaterialesPreciosos p = new MaterialesPreciosos(int.Parse(datos[0]), datos[1], int.Parse(datos[2]), double.Parse(datos[3]), datos[4], datos[5], double.Parse(datos[6]));
                             listaProductos.Add(p);
                         }
-                        else if (datos[0] == "2") {
+                        else if (datos[6] == "ProductoAlimenticio") {
                             ProductoAlimenticio p = new ProductoAlimenticio(int.Parse(datos[0]), datos[1], int.Parse(datos[2]), double.Parse(datos[3]), datos[4], datos[5]);
                             listaProductos.Add(p);
                         }
-                        else if (datos[0] == "3") {
+                        else if (datos[8] == "ProductoElectronico") {
                             ProductoElectronico p = new ProductoElectronico(int.Parse(datos[0]), datos[1], int.Parse(datos[2]), double.Parse(datos[3]), datos[4], datos[5], bool.Parse(datos[6]), bool.Parse(datos[7]));
                             listaProductos.Add(p);
                         }

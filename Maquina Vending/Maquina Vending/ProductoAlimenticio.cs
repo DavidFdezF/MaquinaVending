@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,8 +32,10 @@ namespace Maquina_Vending {
                 throw;
             }
         }
-        public override void ToFile() {
-            throw new NotImplementedException();
-        }
+            public override void ToFile() {
+            StreamWriter sw = new StreamWriter("productos.csv", true);
+            sw.WriteLine($"{ID};{Nombre};{Unidades};{PrecioUnidad};{Descripcion};{InformacionNutricional};ProductoAlimenticio");
+            sw.Close();
+            }
     }
 }
