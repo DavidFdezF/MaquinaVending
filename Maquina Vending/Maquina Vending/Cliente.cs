@@ -125,6 +125,7 @@ namespace Maquina_Vending
                             Console.WriteLine("\nPago completado. Dispensando producto...");
                             break;
                         case 3:
+                            Salir();
                             Console.WriteLine("\nSaliendo...");
                             break;
                         default:
@@ -181,6 +182,18 @@ namespace Maquina_Vending
             else
             {
                 Console.WriteLine("ID de producto no válido.");
+            }
+
+        }
+        public override void Salir()
+        {
+            if (listaProductos.Count > 0)
+            {
+                File.Create("productos.csv").Close();
+                foreach (Producto p in listaProductos)
+                {
+                    p.ToFile();
+                }
             }
         }
     }
