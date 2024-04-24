@@ -250,7 +250,7 @@ namespace Maquina_Vending
                     Console.WriteLine($"Unidades: {materialPrecioso.Unidades}");
                     Console.WriteLine($"Precio: {materialPrecioso.PrecioUnidad}");
                     Console.WriteLine($"Tipo de Material: {materialPrecioso.TipoMaterial}");
-                    Console.WriteLine($"Peso: {materialPrecioso.Peso:F2} kg");
+                    Console.WriteLine($"Peso: {materialPrecioso.Peso} kg");
                 }
                 else if (productoMostrado is ProductoAlimenticio)
                 {
