@@ -6,29 +6,29 @@ using System.Threading.Tasks;
 using System.IO;
 
 namespace Maquina_Vending {
-    internal class MaterialesPreciosos : Producto{
+    internal class MaterialesPreciosos : Producto {
 
-        public string TipoMaterial {  get; set; }
-        public double Peso {  get; set; }
+        public string TipoMaterial { get; set; }
+        public double Peso { get; set; }
 
         public MaterialesPreciosos() { }
-        public MaterialesPreciosos(List<Producto> listaProductos) : base(listaProductos) {}
-        public MaterialesPreciosos(int id, string nombre, int unidades, double precioUnidad, 
-            string descripcion,string tipoMaterial, double peso) : base (id, nombre, unidades,
+        public MaterialesPreciosos(List<Producto> listaProductos) : base(listaProductos) { }
+        public MaterialesPreciosos(int id, string nombre, int unidades, double precioUnidad,
+            string descripcion, string tipoMaterial, double peso) : base(id, nombre, unidades,
                 precioUnidad, descripcion) {
             TipoMaterial = tipoMaterial;
             Peso = peso;
         }
         public override string MostrarInformacion() {
-            return $"{ID}\n\t{Nombre}\n\tUnidades: {Unidades}\n\tPrecio por Unidad {PrecioUnidad}\n\t" +
-                $"Descripción: {Descripcion}\n\tTipo de Material: {TipoMaterial}\n\tPeso: {Peso} kg";
+            return base.MostrarInformacion() +
+                $"{TipoMaterial}\n\tPeso: {Peso:F2} kg";
         }
         public override void SolicitarDetalles() {
             try {
                 base.SolicitarDetalles();
                 Console.Write("Tipo de Material: ");
                 TipoMaterial = Console.ReadLine();
-                Console.Write("Peso: ");
+                Console.Write("Peso (en kg): ");
                 Peso = double.Parse(Console.ReadLine());
             }
             catch (FormatException) {

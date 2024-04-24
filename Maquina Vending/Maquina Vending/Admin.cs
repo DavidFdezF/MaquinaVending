@@ -97,7 +97,7 @@ namespace Maquina_Vending {
         public override void ComprarProductos() {
             throw new NotImplementedException();
         }
-        public void Salir() {
+        public override void Salir() {
             //Guardamos los productos en un archivo csv al cerrar la sesion
             if (listaProductos.Count > 0) {
                 File.Create("productos.csv").Close();
@@ -152,13 +152,13 @@ namespace Maquina_Vending {
                             }
                         }
                         if (contenidosCargados) {
-                                Console.WriteLine($"Se han cargado {productosCargados} productos.");
-                        } 
+                            Console.WriteLine($"Se han cargado {productosCargados} productos.");
+                        }
                         else if (listaProductos.Count == 12) {
-                                Console.WriteLine("Máquina llena");
+                            Console.WriteLine("Máquina llena");
                         }
                         else {
-                                Console.WriteLine("Error: La línea no contiene todos los datos necesarios.");
+                            Console.WriteLine("Error: La línea no contiene todos los datos necesarios.");
                         }
                     }
                     else {
@@ -178,8 +178,7 @@ namespace Maquina_Vending {
             //Al añadir productos desde un archivo csv, comprobamos que sus ID no esten repetidos
             int maxID = 0;
             foreach (Producto p in listaProductos) {
-                if (p.ID > maxID && p.ID <= 12) 
-                {
+                if (p.ID > maxID && p.ID <= 12) {
                     maxID = p.ID;
                 }
             }
@@ -222,7 +221,7 @@ namespace Maquina_Vending {
                                     Console.WriteLine("El ID ya está en uso. Generando un nuevo ID...");
                                     p1.ID += 1;
                                 }
-                                listaProductos.Add(p1); 
+                                listaProductos.Add(p1);
                                 break;
                             case 2:
                                 ProductoAlimenticio p2 = new ProductoAlimenticio(listaProductos);
@@ -261,7 +260,7 @@ namespace Maquina_Vending {
                 Console.WriteLine("No hay ranuras disponibles en la máquina de vending.");
             }
         }
-        public void AñadirExistencias(List<Producto> listaProductos) {
+        public void AnadirExistencias(List<Producto> listaProductos) {
             //Metod para añadir unidades a un producto ya añadido
             Console.WriteLine("Añadir existencias a un producto existente:");
             Console.Write("ID del producto: ");

@@ -45,6 +45,9 @@ namespace Maquina_Vending {
                         case 4:
                             admin.CargaCompleta();
                             break;
+                        case 5:
+                            Console.WriteLine("Saliendo...");
+                            break;
                         default:
                             Console.WriteLine("Opcion no valida");
                             break;
