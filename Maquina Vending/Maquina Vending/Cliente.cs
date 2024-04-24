@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Maquina_Vending {
-    internal class Cliente : Usuario {
+namespace Maquina_Vending
+{
+    internal class Cliente : Usuario
+    {
 
         public Cliente(List<Producto> productos) : base(productos) { }
         public Cliente(string nombre, List<Producto> productos) : base(nombre, productos) { }
@@ -18,7 +20,8 @@ namespace Maquina_Vending {
                 Console.Clear();
                 // Mostrar lista de productos disponibles
                 Console.WriteLine("Productos disponibles:");
-                foreach (Producto producto in listaProductos) {
+                foreach (Producto producto in listaProductos)
+                {
                     Console.WriteLine($"ID: {producto.ID}\n\tNombre: {producto.Nombre}\n\tUnidades disponibles: {producto.Unidades}\n\t" +
                                       $"Precio: {producto.PrecioUnidad}");
                 }
@@ -132,13 +135,14 @@ namespace Maquina_Vending {
                                 }
                                 Console.WriteLine($"\nEl total a pagar es: {totalPago}");
 
-                                double cantidadPagada = 0;
-                                while (cantidadPagada < totalPago) {
-                                    Console.Write("\nIngrese la cantidad a pagar: ");
-                                    double moneda = double.Parse(Console.ReadLine());
-                                    cantidadPagada += moneda;
-                                    Console.WriteLine($"Cantidad pagada: {cantidadPagada}");
-                                }
+                            double cantidadPagada = 0;
+                            while (cantidadPagada < totalPago)
+                            {
+                                Console.Write("\nIngrese la cantidad a pagar: ");
+                                double moneda = double.Parse(Console.ReadLine());
+                                cantidadPagada += moneda;
+                                Console.WriteLine($"Cantidad pagada: {cantidadPagada}");
+                            }
 
                                 if (cantidadPagada >= totalPago) {
                                     Console.WriteLine("\nPago completado. Dispensando producto...");
@@ -212,10 +216,12 @@ namespace Maquina_Vending {
                 } while (opcionPago != 4);
             }
 
-        public override void MostrarInformacionProducto() {
+        public override void MostrarInformacionProducto()
+        {
             // Mostrar los productos disponibles
             Console.WriteLine("Productos disponibles:");
-            foreach (Producto producto in listaProductos) {
+            foreach (Producto producto in listaProductos)
+            {
                 Console.WriteLine($"ID: {producto.ID}, Nombre: {producto.Nombre}, Unidades: {producto.Unidades}, Precio: {producto.PrecioUnidad}");
             }
 
@@ -225,21 +231,37 @@ namespace Maquina_Vending {
 
             // Buscar el producto en la lista y mostrar su información si existe
             Producto productoMostrado = null;
-            foreach (Producto producto in listaProductos) {
-                if (producto.ID == idProducto) {
+            foreach (Producto producto in listaProductos)
+            {
+                if (producto.ID == idProducto)
+                {
                     productoMostrado = producto;
                     break;
                 }
             }
 
-            if (productoMostrado != null) {
+            if (productoMostrado != null)
+            {
                 Console.WriteLine($"Nombre: {productoMostrado.Nombre}");
                 Console.WriteLine($"Precio: {productoMostrado.PrecioUnidad}");
                 Console.WriteLine($"Descripción: {productoMostrado.Descripcion}");
                 Console.WriteLine($"Cantidad disponible: {productoMostrado.Unidades}");
             }
-            else {
+            else
+            {
                 Console.WriteLine("ID de producto no válido.");
+            }
+
+        }
+        public override void Salir()
+        {
+            if (listaProductos.Count > 0)
+            {
+                File.Create("productos.csv").Close();
+                foreach (Producto p in listaProductos)
+                {
+                    p.ToFile();
+                }
             }
         }
 
