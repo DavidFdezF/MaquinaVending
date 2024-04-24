@@ -39,7 +39,6 @@ namespace Maquina_Vending {
                 foreach (Producto producto in listaProductos) {
                     if (producto.ID == idProducto) {
                         productoSeleccionado = producto;
-                        break;
                     }
                 }
                 if (productoSeleccionado != null) {
