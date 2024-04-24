@@ -8,9 +8,9 @@ using System.IO;
 namespace Maquina_Vending {
     internal class Admin : Usuario {
 
-        public string Pin { get; set; }
+        public string Pin { get; set; }//Otra variable para guardar la contraseña y compararla para verificar
 
-        public Admin() { }
+        public Admin() { }//Constructores necesarios
         public Admin(List<Producto> productos, string pin) : base(productos) {
             Pin = pin;
         }
@@ -32,14 +32,6 @@ namespace Maquina_Vending {
             }
             return inicioSesion;
         }
-        private void EliminarProductoConClave() {
-            Console.Write("ID del producto a reducir: ");
-            int idProducto = int.Parse(Console.ReadLine());
-
-            Producto producto = BuscarProducto(idProducto);
-            EliminarProducto(producto);
-        }
-
 
         public void Menu() {
             int opcion = 0;
@@ -106,6 +98,7 @@ namespace Maquina_Vending {
             throw new NotImplementedException();
         }
         public void Salir() {
+            //Guardamos los productos en un archivo csv al cerrar la sesion
             if (listaProductos.Count > 0) {
                 File.Create("productos.csv").Close();
                 foreach (Producto p in listaProductos) {
@@ -114,6 +107,7 @@ namespace Maquina_Vending {
             }
         }
         public bool CargaCompleta() {
+            //Cargamos desde un archivo csv desde dentro de la carpeta de la solución
             bool contenidosCargados = false;
             int productosCargados = 0;
             if (Login()) {
@@ -181,6 +175,7 @@ namespace Maquina_Vending {
             return contenidosCargados;
         }
         private int ObtenerNuevoID() {
+            //Al añadir productos desde un archivo csv, comprobamos que sus ID no esten repetidos
             int maxID = 0;
             foreach (Producto p in listaProductos) {
                 if (p.ID > maxID && p.ID <= 12) 
@@ -207,6 +202,7 @@ namespace Maquina_Vending {
             return maxID + 1;
         }
         public void AddProducto() {
+            //Metodo para añadir productos
             if (listaProductos.Count < 12) {
                 int opcion = 0;
                 do {
@@ -266,6 +262,7 @@ namespace Maquina_Vending {
             }
         }
         public void AñadirExistencias(List<Producto> listaProductos) {
+            //Metod para añadir unidades a un producto ya añadido
             Console.WriteLine("Añadir existencias a un producto existente:");
             Console.Write("ID del producto: ");
             int idProducto = int.Parse(Console.ReadLine());
@@ -284,6 +281,7 @@ namespace Maquina_Vending {
 
 
         public Producto BuscarProducto(int id) {
+            //Buscamos el producto por id el la listaProductos 
             Producto productoTemp = null;
             foreach (Producto p in listaProductos) {
                 if (p.ID == id) {
@@ -294,6 +292,7 @@ namespace Maquina_Vending {
             return productoTemp;
         }
         public void EliminarProducto(Producto p) {
+            //Metodo para reducir las unidades de u producto, a su vez si las unidades llegan a 0 el producto se eliminara.
             if (p != null) {
                 Console.WriteLine("Producto encontrado:");
                 Console.WriteLine(p.MostrarInformacion());
@@ -332,6 +331,7 @@ namespace Maquina_Vending {
         }
 
         public override void MostrarInformacionProducto() {
+            //Metodo para mostrar todos los productos de la lista
             Console.WriteLine(" --- Listado de productos --- ");
             Console.WriteLine();
             foreach (Producto p in listaProductos) {
