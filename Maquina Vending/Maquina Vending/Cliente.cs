@@ -242,26 +242,54 @@ namespace Maquina_Vending
 
             if (productoMostrado != null)
             {
-                Console.WriteLine($"Nombre: {productoMostrado.Nombre}");
-                Console.WriteLine($"Precio: {productoMostrado.PrecioUnidad}");
-                Console.WriteLine($"Descripción: {productoMostrado.Descripcion}");
-                Console.WriteLine($"Cantidad disponible: {productoMostrado.Unidades}");
+                if (productoMostrado is MaterialesPreciosos)
+                {
+                    MaterialesPreciosos materialPrecioso = (MaterialesPreciosos)productoMostrado;
+                    Console.WriteLine($"ID: {materialPrecioso.ID}");
+                    Console.WriteLine($"Nombre: {materialPrecioso.Nombre}");
+                    Console.WriteLine($"Unidades: {materialPrecioso.Unidades}");
+                    Console.WriteLine($"Precio: {materialPrecioso.PrecioUnidad}");
+                    Console.WriteLine($"Tipo de Material: {materialPrecioso.TipoMaterial}");
+                    Console.WriteLine($"Peso: {materialPrecioso.Peso:F2} kg");
+                }
+                else if (productoMostrado is ProductoAlimenticio)
+                {
+                    ProductoAlimenticio productoAlimenticio = (ProductoAlimenticio)productoMostrado;
+                    Console.WriteLine($"ID: {productoAlimenticio.ID}");
+                    Console.WriteLine($"Nombre: {productoAlimenticio.Nombre}");
+                    Console.WriteLine($"Unidades: {productoAlimenticio.Unidades}");
+                    Console.WriteLine($"Precio: {productoAlimenticio.PrecioUnidad}");
+                    Console.WriteLine($"Información Nutricional: {productoAlimenticio.InformacionNutricional}");
+                }
+                else if (productoMostrado is ProductoElectronico)
+                {
+                    ProductoElectronico productoElectronico = (ProductoElectronico)productoMostrado;
+                    Console.WriteLine($"ID: {productoElectronico.ID}");
+                    Console.WriteLine($"Nombre: {productoElectronico.Nombre}");
+                    Console.WriteLine($"Unidades: {productoElectronico.Unidades}");
+                    Console.WriteLine($"Precio: {productoElectronico.PrecioUnidad}");
+                    Console.WriteLine($"Tipo de materiales utilizados: {productoElectronico.TipoMaterial}");
+                    Console.WriteLine($"¿Tiene pilas? {productoElectronico.Pilas}");
+                    Console.WriteLine($"¿Está precargado? {productoElectronico.PreCargado}");
+                }
             }
             else
             {
-                Console.WriteLine("ID de producto no válido.");
+                Console.WriteLine("No se encontró ningún producto con el ID especificado.");
             }
-
         }
 
-        public override void Salir() {
-            //Guardamos los productos en un archivo csv al cerrar la sesion
-            if (listaProductos.Count > 0) {
+        public override void Salir()
+        {
+            if (listaProductos.Count > 0)
+            {
                 File.Create("productos.csv").Close();
-                foreach (Producto p in listaProductos) {
+                foreach (Producto p in listaProductos)
+                {
                     p.ToFile();
                 }
             }
         }
     }
 }
+
