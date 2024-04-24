@@ -253,17 +253,6 @@ namespace Maquina_Vending
             }
 
         }
-        public override void Salir()
-        {
-            if (listaProductos.Count > 0)
-            {
-                File.Create("productos.csv").Close();
-                foreach (Producto p in listaProductos)
-                {
-                    p.ToFile();
-                }
-            }
-        }
 
         public override void Salir() {
             //Guardamos los productos en un archivo csv al cerrar la sesion
