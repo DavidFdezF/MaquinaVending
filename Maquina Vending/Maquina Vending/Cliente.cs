@@ -21,12 +21,18 @@ namespace Maquina_Vending {
                 // Mostrar lista de productos disponibles
                 Console.WriteLine("Productos disponibles:");
                 foreach (Producto producto in listaProductos) {
-                    Console.WriteLine($"ID: {producto.ID}, Nombre: {producto.Nombre}, Unidades disponibles: {producto.Unidades}, Precio: {producto.PrecioUnidad}");
+                    Console.WriteLine($"ID: {producto.ID}\n\tNombre: {producto.Nombre}\n\tUnidades disponibles: {producto.Unidades}\n\t" +
+                        $"Precio: {producto.PrecioUnidad}");
                 }
 
                 // Solicitar al usuario el ID del producto que desea comprar
                 Console.Write("Ingrese el ID del producto que desea comprar: ");
                 int idProducto = int.Parse(Console.ReadLine());
+
+                if (idProducto == 0) {
+                    Console.WriteLine("\nSaliendo del proceso de compra...");
+                    return;
+                }
 
                 // Buscar el producto en la lista de productos disponibles
                 Producto productoSeleccionado = null;
@@ -38,22 +44,21 @@ namespace Maquina_Vending {
                 }
                 if (productoSeleccionado != null) {
                     productosComprados.Add(productoSeleccionado);
-                    Console.WriteLine($"Producto '{productoSeleccionado.Nombre}' agregado al carrito.");
+                    Console.WriteLine($"\nProducto '{productoSeleccionado.Nombre}' agregado al carrito.");
 
                     // Preguntar al usuario si desea elegir otro producto
-                    Console.WriteLine("¿Desea elegir otro producto?");
+                    Console.WriteLine("\n¿Desea elegir otro producto?");
                     Console.WriteLine("1. Sí");
                     Console.WriteLine("2. No");
                     Console.Write("Opción: ");
                     int opcion = int.Parse(Console.ReadLine());
                     seguirComprando = (opcion == 1);
+
+                    if (seguirComprando) continue;
                 }
                 else {
                     Console.WriteLine("\nID de producto no válido.");
                 }
-
-
-
 
                 //Pago
                 int opcionPago = 0;
@@ -110,7 +115,7 @@ namespace Maquina_Vending {
                                 foreach (Producto producto in productosComprados) {
                                     producto.Unidades -= 1;
                                 }
-                                break;
+                                return;
                             case 3:
                                 Console.WriteLine("\nSaliendo...");
                                 break;
