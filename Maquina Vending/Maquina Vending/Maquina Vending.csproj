@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Admin.cs" />
     <Compile Include="Cliente.cs" />
+    <Compile Include="MaquinaVending.cs" />
     <Compile Include="MaterialesPreciosos.cs" />
     <Compile Include="Producto.cs" />
     <Compile Include="ProductoAlimenticio.cs" />
