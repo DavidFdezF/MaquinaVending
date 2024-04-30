@@ -12,7 +12,8 @@ namespace Maquina_Vending {
         public bool PreCargado { get; set; }
         public ProductoElectronico() { }
         public ProductoElectronico(List<Producto> listaProductos) : base(listaProductos) {}
-        public ProductoElectronico(int iD, string nombre, int unidades, double precioUnidad, string descripcion, string tipoMaterial, bool pilas, bool preCargado)
+        public ProductoElectronico(int iD, string nombre, int unidades, double precioUnidad, 
+            string descripcion, string tipoMaterial, bool pilas, bool preCargado)
             : base(iD, nombre, unidades, precioUnidad, descripcion) {
             TipoMaterial = tipoMaterial;
             Pilas = pilas;
@@ -20,7 +21,8 @@ namespace Maquina_Vending {
         }
         public override string MostrarInformacion() {
             return base.MostrarInformacion() +
-              $"\n\tTipo de materials utilizados: {TipoMaterial}\n\t¿Tiene pilas? {Pilas}\n\t¿Está precargado? {PreCargado}";
+              $"\n\tTipo de materials utilizados: {TipoMaterial}\n\t¿Tiene pilas? " +
+              $"{Pilas}\n\t¿Está precargado? {PreCargado}";
         }
         public override void SolicitarDetalles() {
             try {
@@ -44,7 +46,8 @@ namespace Maquina_Vending {
         }
         public override void ToFile() {
             StreamWriter sw = new StreamWriter("productos.csv", true);
-            sw.WriteLine($"{ID};{Nombre};{Unidades};{PrecioUnidad};{Descripcion};{TipoMaterial};{Pilas};{PreCargado};ProductoElectronico");
+            sw.WriteLine($"{ID};{Nombre};{Unidades};{PrecioUnidad};{Descripcion};" +
+                $"{TipoMaterial};{Pilas};{PreCargado};ProductoElectronico");
             sw.Close();
         }
 

@@ -41,7 +41,8 @@ namespace Maquina_Vending {
         }
         public override void ToFile() {
             StreamWriter sw = new StreamWriter("productos.csv", true);
-            sw.WriteLine($"{ID};{Nombre};{Unidades};{PrecioUnidad};{Descripcion};{TipoMaterial};{Peso};MaterialesPreciosos");
+            sw.WriteLine($"{ID};{Nombre};{Unidades};{PrecioUnidad};{Descripcion};" +
+                $"{TipoMaterial};{Peso};MaterialesPreciosos");
             sw.Close();
         }
     }
