@@ -94,9 +94,6 @@ namespace Maquina_Vending {
                 } while (opcion != 5);
             }
         }
-        public override void ComprarProductos() {
-            throw new NotImplementedException();
-        }
         public override void Salir() {
             //Guardamos los productos en un archivo csv al cerrar la sesion
             if (listaProductos.Count > 0) {

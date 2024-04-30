@@ -14,7 +14,7 @@ namespace Maquina_Vending
         Dictionary<int, int> cantidadesTemporales = new Dictionary<int, int>();
 
         //Métodos de la clase abstracta
-        public override void ComprarProductos() {
+        public void ComprarProductos() {
             // Mostramos productos disponibles
             List<Producto> productosComprados = new List<Producto>();
 
