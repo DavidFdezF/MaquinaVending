@@ -29,7 +29,7 @@ namespace Maquina_Vending
                 }
 
                 // Solicitar al usuario la acción que desea realizar
-                Console.WriteLine("\n¿Qué deseas hacer?");
+                Console.WriteLine("¿Qué deseas hacer?");
                 Console.WriteLine("1. Comprar un producto (ingresa el ID)");
                 Console.WriteLine("2. Ver carrito de compras");
                 Console.WriteLine("3. Terminar compra");
@@ -54,7 +54,7 @@ namespace Maquina_Vending
                         if (productoSeleccionado != null) {
                             if (productoSeleccionado.Unidades <= 0) {
                                 Console.WriteLine("El producto no está disponible en este momento.");
-                                Console.WriteLine("\nPresiona una tecla para continuar");
+                                Console.WriteLine("Presiona una tecla para continuar");
                                 Console.ReadLine();
                                 continue;
                             }
@@ -63,13 +63,13 @@ namespace Maquina_Vending
                                 cantidadesTemporales.Add(productoSeleccionado.ID, productoSeleccionado.Unidades);
                             }
                             productosComprados.Add(productoSeleccionado);
-                            Console.WriteLine($"\nProducto '{productoSeleccionado.Nombre}' agregado al carrito.");
+                            Console.WriteLine($"Producto '{productoSeleccionado.Nombre}' agregado al carrito.");
 
                             // Actualizamos las unidades disponibles del producto
                             productoSeleccionado.Unidades -= 1;
 
                             // Preguntamos al usuario si desea continuar comprando
-                            Console.Write("\n¿Desea continuar comprando? (s/n): ");
+                            Console.Write("¿Desea continuar comprando? (s/n): ");
                             string continuar = Console.ReadLine();
                             if (continuar != "s") {
                                 RealizarPago(productosComprados);
@@ -77,8 +77,8 @@ namespace Maquina_Vending
                             }
                         }
                         else {
-                            Console.WriteLine("\nID de producto no válido.");
-                            Console.WriteLine("\nPresiona una tecla para continuar");
+                            Console.WriteLine("ID de producto no válido.");
+                            Console.WriteLine("Presiona una tecla para continuar");
                             Console.ReadLine();
                         }
                         break;
@@ -94,7 +94,7 @@ namespace Maquina_Vending
                         else {
                             Console.WriteLine("El carrito de compras está vacío.");
                         }
-                        Console.WriteLine("\nPresiona una tecla para volver al menú...");
+                        Console.WriteLine("Presiona una tecla para volver al menú...");
                         Console.ReadLine();
                         break;
                     case "3":
@@ -105,8 +105,8 @@ namespace Maquina_Vending
                         Console.WriteLine("\nSaliendo...");
                         return;
                     default:
-                        Console.WriteLine("\nOpción no válida. Por favor, intenta de nuevo.");
-                        Console.WriteLine("\nPresiona una tecla para continuar");
+                        Console.WriteLine("Opción no válida. Por favor, intenta de nuevo.");
+                        Console.WriteLine("Presiona una tecla para continuar");
                         Console.ReadLine();
                         break;
                 }
@@ -229,7 +229,7 @@ namespace Maquina_Vending
             Console.WriteLine("Productos disponibles:");
             foreach (Producto producto in listaProductos)
             {
-                Console.WriteLine($"ID: {producto.ID}, Nombre: {producto.Nombre}, Unidades: {producto.Unidades}, Precio: {producto.PrecioUnidad}");
+                Console.WriteLine($"ID: {producto.ID}\n\tNombre: {producto.Nombre}\n\tUnidades: {producto.Unidades}\n\tPrecio: {producto.PrecioUnidad}");
             }
 
             // Pedir al usuario el ID del producto que desea ver

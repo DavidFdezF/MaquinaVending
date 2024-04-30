@@ -125,15 +125,15 @@ namespace Maquina_Vending {
                             string[] datos = linea.Split(';');
                             if (datos.Length <= 9) {
                                 Producto productoCargado = null;
-                                if (datos[7] == "MaterialesPreciosos") {
+                                if (datos.Length == 8 && datos[7] == "MaterialesPreciosos") {
                                     MaterialesPreciosos p = new MaterialesPreciosos(int.Parse(datos[0]), datos[1], int.Parse(datos[2]), double.Parse(datos[3]), datos[4], datos[5], double.Parse(datos[6]));
                                     productoCargado = p;
                                 }
-                                else if (datos[6] == "ProductoAlimenticio") {
+                                else if (datos.Length == 7 && datos[6] == "ProductoAlimenticio") {
                                     ProductoAlimenticio p = new ProductoAlimenticio(int.Parse(datos[0]), datos[1], int.Parse(datos[2]), double.Parse(datos[3]), datos[4], datos[5]);
                                     productoCargado = p;
                                 }
-                                else if (datos[8] == "ProductoElectronico") {
+                                else if (datos.Length == 9 && datos[8] == "ProductoElectronico") {
                                     ProductoElectronico p = new ProductoElectronico(int.Parse(datos[0]), datos[1], int.Parse(datos[2]), double.Parse(datos[3]), datos[4], datos[5], bool.Parse(datos[6]), bool.Parse(datos[7]));
                                     productoCargado = p;
                                 }
@@ -150,6 +150,7 @@ namespace Maquina_Vending {
                                     }
                                 }
                             }
+                            Salir();
                         }
                         if (contenidosCargados) {
                             Console.WriteLine($"Se han cargado {productosCargados} productos.");
@@ -170,6 +171,9 @@ namespace Maquina_Vending {
                 }
                 catch (IOException ex) {
                     Console.WriteLine("Error de E/S: " + ex.Message);
+                }
+                catch (IndexOutOfRangeException) {
+                    Console.WriteLine("Error: Índice fuera del rango en la matriz");
                 }
             }
             return contenidosCargados;
@@ -334,7 +338,7 @@ namespace Maquina_Vending {
             Console.WriteLine(" --- Listado de productos --- ");
             Console.WriteLine();
             foreach (Producto p in listaProductos) {
-                Console.WriteLine(p.MostrarInformacion());
+                Console.WriteLine($"ID: {p.ID}\n\tNombre: {p.Nombre}\n\tUnidades: {p.Unidades}\n\tPrecio: {p.PrecioUnidad}\n\tDescripción: {p.Descripcion}");
             }
         }
     }
