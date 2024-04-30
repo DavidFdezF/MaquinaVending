@@ -68,7 +68,7 @@ namespace Maquina_Vending {
                                 if (productoExistencias != null) {
                                     Console.Write("Cantidad de existencias a añadir: ");
                                     int cantidad = int.Parse(Console.ReadLine());
-                                    productoExistencias.AñadirExistencias(cantidad);
+                                    productoExistencias.AnadirExistencias(cantidad);
                                     Console.WriteLine("Existencias añadidas correctamente.");
                                 }
                                 else {
@@ -185,14 +185,14 @@ namespace Maquina_Vending {
 
             if (maxID == 12) {
                 for (int i = 1; i <= 12; i++) {
-                    bool idLibre = true;
+                    bool idLibre = false;
                     foreach (Producto p in listaProductos) {
                         if (p.ID == i) {
-                            idLibre = false;
+                            idLibre = true;
                             break;
                         }
                     }
-                    if (idLibre) {
+                    if (!idLibre) {
                         return i;
                     }
                 }
@@ -270,7 +270,7 @@ namespace Maquina_Vending {
             if (producto != null) {
                 Console.Write("Cantidad de existencias a añadir: ");
                 int cantidad = int.Parse(Console.ReadLine());
-                producto.AñadirExistencias(cantidad);
+                producto.AnadirExistencias(cantidad);
                 Console.WriteLine("Existencias añadidas correctamente.");
             }
             else {

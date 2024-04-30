@@ -48,7 +48,7 @@ namespace Maquina_Vending {
                 throw;
             }
         }
-        public virtual void AñadirExistencias(int cantidad) {
+        public virtual void AnadirExistencias(int cantidad) {
             Unidades += cantidad;
         }
         public abstract void ToFile();
