@@ -40,7 +40,7 @@ namespace Maquina_Vending {
                             Console.WriteLine("Saliendo...");
                             break;
                         default:
-                            Console.WriteLine("Opción no válida");
+                            Console.WriteLine("Opción no válida. Por favor, ingrese un número válido.");
                             break;
                     }
                 }
