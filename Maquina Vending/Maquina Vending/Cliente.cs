@@ -5,11 +5,13 @@ using System.Linq;
 
 namespace Maquina_Vending
 {
-    internal class Cliente : Usuario
-    {
+    internal class Cliente : Usuario { 
 
         public Cliente(List<Producto> productos) : base(productos) { }
         public Cliente(string nombre, List<Producto> productos) : base(nombre, productos) { }
+
+        Producto productoSeleccionado = null;
+        Dictionary<int, int> cantidadesTemporales = new Dictionary<int, int>();
 
         //Métodos de la clase abstracta
         public override void ComprarProductos() {
@@ -37,12 +39,11 @@ namespace Maquina_Vending
 
                 switch (opcion) {
                     case "1":
-                        // Lógica para comprar un producto
+                        // Pedimos el Id del producto a comprar
                         Console.Write("\nIngrese el ID del producto que desea comprar: ");
                         int idProducto = int.Parse(Console.ReadLine());
 
-                        // Buscar el producto en la lista de productos disponibles
-                        Producto productoSeleccionado = null;
+                        // Buscamos el producto en la lista de productos disponibles
                         foreach (Producto producto in listaProductos) {
                             if (producto.ID == idProducto) {
                                 productoSeleccionado = producto;
@@ -58,13 +59,16 @@ namespace Maquina_Vending
                                 continue;
                             }
 
+                            if (!cantidadesTemporales.ContainsKey(productoSeleccionado.ID)) {
+                                cantidadesTemporales.Add(productoSeleccionado.ID, productoSeleccionado.Unidades);
+                            }
                             productosComprados.Add(productoSeleccionado);
                             Console.WriteLine($"\nProducto '{productoSeleccionado.Nombre}' agregado al carrito.");
 
-                            // Actualizar unidades disponibles del producto
+                            // Actualizamos las unidades disponibles del producto
                             productoSeleccionado.Unidades -= 1;
 
-                            // Preguntar al usuario si desea continuar comprando
+                            // Preguntamos al usuario si desea continuar comprando
                             Console.Write("\n¿Desea continuar comprando? (s/n): ");
                             string continuar = Console.ReadLine();
                             if (continuar != "s") {
@@ -145,6 +149,9 @@ namespace Maquina_Vending
                             }
 
                                 if (cantidadPagada >= totalPago) {
+                                    if (productoSeleccionado.Unidades == 0) {
+                                        listaProductos.Remove(productoSeleccionado);
+                                    }
                                     Console.WriteLine("\nPago completado. Dispensando producto...");
                                     productosComprados.Clear();
                                 }
@@ -279,9 +286,15 @@ namespace Maquina_Vending
             }
         }
 
-        public override void Salir()
-        {
-        
+        public override void Salir() {
+            foreach (var kvp in cantidadesTemporales) {
+                foreach (Producto producto in listaProductos) {
+                    if (kvp.Key == producto.ID) {
+                        producto.Unidades = kvp.Value;
+                        break;
+                    }
+                }
+            }
         }
     }
 }

@@ -24,7 +24,8 @@ namespace Maquina_Vending {
             Descripcion = descripcion;
         }
         public virtual string MostrarInformacion() {
-            return $"{ID}\n\t{Nombre}\n\tUnidades: {Unidades}\n\tPrecio por Unidad {PrecioUnidad}\n\t" +
+            return $"{ID}\n\t{Nombre}\n\tUnidades: {Unidades}\n\t" +
+                $"Precio por Unidad {PrecioUnidad}\n\t" +
                 $"Descripción: {Descripcion}";
         }
         public virtual void SolicitarDetalles() {

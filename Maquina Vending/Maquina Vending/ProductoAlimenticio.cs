@@ -10,7 +10,8 @@ namespace Maquina_Vending {
         public string InformacionNutricional {  get; set; }
         public ProductoAlimenticio() { }
         public ProductoAlimenticio(List<Producto> listaProductos) : base(listaProductos) {}
-        public ProductoAlimenticio(int iD, string nombre, int unidades, double precioUnidad, string descripcion, string informacionNutricional)
+        public ProductoAlimenticio(int iD, string nombre, int unidades, double precioUnidad, 
+            string descripcion, string informacionNutricional)
             : base(iD, nombre, unidades, precioUnidad, descripcion) {
             InformacionNutricional = informacionNutricional;
         }
@@ -34,7 +35,8 @@ namespace Maquina_Vending {
         }
             public override void ToFile() {
             StreamWriter sw = new StreamWriter("productos.csv", true);
-            sw.WriteLine($"{ID};{Nombre};{Unidades};{PrecioUnidad};{Descripcion};{InformacionNutricional};ProductoAlimenticio");
+            sw.WriteLine($"{ID};{Nombre};{Unidades};{PrecioUnidad};{Descripcion};" +
+                $"{InformacionNutricional};ProductoAlimenticio");
             sw.Close();
             }
     }
